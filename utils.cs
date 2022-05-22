@@ -170,9 +170,35 @@ namespace FlightChessClient
 
             }
         }
-        ~utils()
+        public class Chessinfo
         {
+            public String MSGKind = "";
+            public String sendHost = "";
+            public String ChessName = "";
+            public int ChessRow = -1;
+            public int ChessLocal = -1;
+            public int States = -1;
+            public Chessinfo(String msgKind,String userName,String chessName,int chessRow,int chessLocal,int states)
+            {
+                MSGKind = msgKind;
+                sendHost = userName;
+                ChessName = chessName;
+                ChessRow = chessRow;
+                ChessLocal = chessLocal;
+                States = states;
+            }
+            public Chessinfo()
+            {
 
+            }
+        }
+        public class Commd
+        {
+            public String MSGKind = "";
+            public int DicePoint = -1;
+            public Boolean DiceState = false;
+            public String Host = "";
+            public int roomID = -1;
         }
     }
 }

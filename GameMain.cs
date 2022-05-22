@@ -16,9 +16,9 @@ namespace FlightChessClient
 {
     public partial class GameMain : Form
     {
+        public int round=-1;
         public ClientWebSocket clientWebSocket = new ClientWebSocket();
         private delegate void SafeWriteDelegate(string text);
-        private delegate void SafeOpenDelegate();
         private delegate void SafeCloseDelegate();
         public string RevMSG = "";
         public JSONinfo TsJSON = new JSONinfo();
@@ -26,6 +26,7 @@ namespace FlightChessClient
         private Thread listening;
         private Game game = null;
         private GameHall gameHall = null;
+        public List<String> players = new List<string>(4);
         public GameMain()
         {
             InitializeComponent();
@@ -35,7 +36,6 @@ namespace FlightChessClient
         {
             utils.Userinfo.updataLoginfo();
             gameHall = new GameHall();
-            game = new Game();
             clientWebSocket.ConnectAsync(new Uri("ws://127.0.0.1:9001"), CancellationToken.None).Wait();
             listeningService = new ThreadStart(GetMSG);
             listening = new Thread(listeningService);
@@ -66,8 +66,23 @@ namespace FlightChessClient
                         {
                             if (TsJSON.MSG == "start")
                             {
-                                OpenFormSafe();
+                                //OpenFormSafe();
+                                game = new Game();
+                                game.round = round;
+                                game.OpenFormSafe(this);
                                 listening.Abort();
+                            }
+                            else
+                            {
+                                players.Add(TsJSON.sendHost);
+                            }
+                        }
+                        else if(TsJSON.MSGKind == "round")
+                        {
+                            if (TsJSON.sendHost == utils.Userinfo.Username)
+                            {
+                                int.TryParse(TsJSON.MSG, out round);
+                                System.Console.WriteLine(round);
                             }
                         }
                     }
@@ -81,16 +96,17 @@ namespace FlightChessClient
             ArraySegment<byte> bytesToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes(sendJson));
             clientWebSocket.SendAsync(bytesToSend, WebSocketMessageType.Text, true, CancellationToken.None).Wait();
         }
-        private void OpenFormSafe()
+        public void SendStr(String ind)
         {
-            if (game.InvokeRequired)
-            {
-                var d = new SafeOpenDelegate(OpenFormSafe);
-            }
-            else
-            {
-                game.ShowDialog();
-            }
+            ArraySegment<byte> bytesToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes(ind));
+            clientWebSocket.SendAsync(bytesToSend, WebSocketMessageType.Text, true, CancellationToken.None).Wait();
+        }
+        public void SendChessMSG(Chessinfo ind)
+        {
+            JavaScriptSerializer jss = new JavaScriptSerializer();
+            string sendJson = jss.Serialize(ind);
+            ArraySegment<byte> bytesToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes(sendJson));
+            clientWebSocket.SendAsync(bytesToSend, WebSocketMessageType.Text, true, CancellationToken.None).Wait();
         }
         private void CloseFormSafe()
         {
