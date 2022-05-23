@@ -130,11 +130,12 @@ namespace FlightChessClient
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(234, 12);
+            this.button1.Font = new System.Drawing.Font("宋体", 24F);
+            this.button1.Location = new System.Drawing.Point(199, 50);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(147, 169);
             this.button1.TabIndex = 10;
-            this.button1.Text = "button1";
+            this.button1.Text = "房间1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 

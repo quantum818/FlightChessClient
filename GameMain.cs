@@ -96,6 +96,13 @@ namespace FlightChessClient
             ArraySegment<byte> bytesToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes(sendJson));
             clientWebSocket.SendAsync(bytesToSend, WebSocketMessageType.Text, true, CancellationToken.None).Wait();
         }
+        public void SendWinMSG(WinInfo ind)
+        {
+            JavaScriptSerializer jss = new JavaScriptSerializer();
+            string sendJson = jss.Serialize(ind);
+            ArraySegment<byte> bytesToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes(sendJson));
+            clientWebSocket.SendAsync(bytesToSend, WebSocketMessageType.Text, true, CancellationToken.None).Wait();
+        }
         public void SendStr(String ind)
         {
             ArraySegment<byte> bytesToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes(ind));

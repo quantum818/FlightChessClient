@@ -200,5 +200,21 @@ namespace FlightChessClient
             public String Host = "";
             public int roomID = -1;
         }
+        public class WinInfo
+        {
+            public String MSGKind = "";
+            public String Host = "";
+            public int WinChess = -1;
+            public WinInfo(String msgKind,String host,int chesses)
+            {
+                MSGKind = msgKind;
+                Host = host;
+                WinChess = chesses;
+            }
+            public WinInfo()
+            {
+
+            }
+        }
     }
 }

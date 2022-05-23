@@ -24,11 +24,13 @@ namespace FlightChessClient
         private delegate void SafeOpenDelegate(Form parent);
         private delegate void SafeDiceOp(Boolean en);
         private delegate void SafeTextChange(String ind);
+        private delegate void SafeAddObj(Chess ind);
         private int points = 0;
-        private int tpoints = 0;
+        private int WinChesses = 0;
         private int sixTimes = 0;
         private Boolean isFirstSix = false;
         private Boolean REVMSG = false;
+        private List<Chess> WaitArea = new List<Chess>();
         public ChessBoard board = new ChessBoard();
         public Game()
         {
@@ -37,6 +39,7 @@ namespace FlightChessClient
 
         private void Game_Load(object sender, EventArgs e)
         {
+            CheckForIllegalCrossThreadCalls = false;
             switch (round)
             {
                 case 1: myDice = YellowDice; break;
@@ -55,6 +58,7 @@ namespace FlightChessClient
                     {
                         chess.host = player;
                         chess.ChessColor = i;
+                        chess.LastRow = board.LastRowY;
                     }
                 }
                 else if (i == 1)
@@ -64,6 +68,7 @@ namespace FlightChessClient
                     {
                         chess.host = player;
                         chess.ChessColor = i;
+                        chess.LastRow = board.LastRowG;
                     }
                 }
                 else if (i == 2)
@@ -73,6 +78,7 @@ namespace FlightChessClient
                     {
                         chess.host = player;
                         chess.ChessColor = i;
+                        chess.LastRow = board.LastRowR;
                     }
                 }
                 else if (i == 3)
@@ -82,6 +88,7 @@ namespace FlightChessClient
                     {
                         chess.host = player;
                         chess.ChessColor = i;
+                        chess.LastRow = board.LastRowB;
                     }
                 }
                 i++;
@@ -96,33 +103,41 @@ namespace FlightChessClient
             if (round == 1) myDice.Enabled = true;
             foreach (var chess in BlueTeam.Controls.OfType<Chess>())
             {
+                chess.OrginImage = chess.Image;
                 chess.ChessColor = 2;
                 chess.ChessOrigin = chess.Location;
                 chess.nowRow = board.ChessRow3;
+                chess.startRow = board.ChessRow3;
                 chess.parentBox = BlueTeam;
                 chess.ChessStartArea = new Point(197, 472);
             }
             foreach (var chess in RedTeam.Controls.OfType<Chess>())
             {
+                chess.OrginImage = chess.Image;
                 chess.ChessColor = 1;
                 chess.ChessOrigin = chess.Location;
                 chess.nowRow = board.ChessRow2;
+                chess.startRow = board.ChessRow2;
                 chess.parentBox = RedTeam;
                 chess.ChessStartArea = new Point(624, 472);
             }
             foreach (var chess in GreenTeam.Controls.OfType<Chess>())
             {
+                chess.OrginImage = chess.Image;
                 chess.ChessColor = 0;
                 chess.ChessOrigin = chess.Location;
                 chess.nowRow = board.ChessRow1;
+                chess.startRow = board.ChessRow1;
                 chess.parentBox = GreenTeam;
                 chess.ChessStartArea = new Point(624, 43);
             }
             foreach (var chess in YellowTeam.Controls.OfType<Chess>())
             {
+                chess.OrginImage = chess.Image;
                 chess.ChessColor = 3;
                 chess.ChessOrigin = chess.Location;
                 chess.nowRow = board.ChessRow4;
+                chess.startRow = board.ChessRow4;
                 chess.parentBox = YellowTeam;
                 chess.ChessStartArea = new Point(197, 43);
             }
@@ -137,6 +152,18 @@ namespace FlightChessClient
             else
             {
                 this.ShowDialog(parent);
+            }
+        }
+        public void AddObjSafe(Chess ind)
+        {
+            if (this.InvokeRequired)
+            {
+                var d = new SafeAddObj(AddObjSafe);
+                this.Invoke(d, new object[] { ind });
+            }
+            else
+            {
+                this.Controls.Add(ind);
             }
         }
         public void ChangeTextSafe(String ind)
@@ -164,6 +191,7 @@ namespace FlightChessClient
                     System.Console.WriteLine(temp);
                     Chessinfo chessinfo = new Chessinfo();
                     Commd commd = new Commd();
+                    WinInfo winInfo = new WinInfo();
                     JavaScriptSerializer jss = new JavaScriptSerializer();
                     if (temp == utils.Userinfo.Username)
                     {
@@ -179,7 +207,12 @@ namespace FlightChessClient
                         commd = jss.Deserialize<Commd>(temp);
                     }
                     catch { }
-                    if (chessinfo.MSGKind == "Chess"&&chessinfo.sendHost!=utils.Userinfo.Username)
+                    try
+                    {
+                        winInfo = jss.Deserialize<WinInfo>(temp);
+                    }
+                    catch { }
+                    if (chessinfo.MSGKind == "Chess" && chessinfo.sendHost != utils.Userinfo.Username)
                     {
                         if (chessinfo.States == 1)
                         {
@@ -201,7 +234,7 @@ namespace FlightChessClient
                                     break;
                                 }
                             }
-                            this.Controls.Add(REVChess);
+                            AddObjSafe(REVChess);
                             REVChess.parentBox.SendToBack();
                             REVChess.Location = REVChess.ChessStartArea;
                             REVChess.parentBox.BringToFront();
@@ -211,7 +244,7 @@ namespace FlightChessClient
                         else if (chessinfo.States == 2)
                         {
                             Chess REVChess = null;
-                            foreach(var chess in pictureBox1.Controls.OfType<Chess>())
+                            foreach (var chess in pictureBox1.Controls.OfType<Chess>())
                             {
                                 if (chess.Name == chessinfo.ChessName)
                                 {
@@ -234,6 +267,38 @@ namespace FlightChessClient
                             REVChess.Location = new Point(REVChess.nowRow[REVChess.nowLocal].Localx - 20, REVChess.nowRow[REVChess.nowLocal].Localy - 20);
                             CheckChesses(REVChess.nowRow[REVChess.nowLocal], REVChess);
                         }
+                        else if (chessinfo.States == 3 && chessinfo.ChessRow==-1)
+                        {
+                            Chess REVChess = null;
+                            foreach (var chess in pictureBox1.Controls.OfType<Chess>())
+                            {
+                                if (chess.Name == chessinfo.ChessName)
+                                {
+                                    REVChess = chess;
+                                    break;
+                                }
+                            }
+                            foreach (var chess in REVChess.otherChess)
+                            {
+                                chess.Show();
+                                chess.Image = chess.OrginImage;
+                                chess.parentBox.Controls.Add(chess);
+                                chess.Parent = chess.parentBox;
+                                chess.Location = chess.ChessOrigin;
+                                chess.Width = chess.Width * 2;
+                                chess.Height = chess.Height * 2;
+                                chess.isChange = false;
+                                chess.nowRow = chess.startRow;
+                                chess.nowLocal = 0;
+                                chess.isStart = false;
+                            }
+                            REVChess.otherChess.Clear();
+                            REVChess.otherChess.Add(REVChess);
+                        }
+                    }
+                    if (chessinfo.MSGKind == "Chess" && chessinfo.States == 3 && chessinfo.ChessRow != -1)//此处更改为单次条件控制解决单边显示问题，未验证
+                    {
+                        ChangeTextSafe(chessinfo.sendHost + "击坠了" + chessinfo.ChessName + " " + chessinfo.ChessRow + "架飞机！");
                     }
                     else if (commd.MSGKind == "Comm")
                     {
@@ -243,6 +308,10 @@ namespace FlightChessClient
                             REVMSG = true;
                         }
                         ChangeTextSafe(commd.Host + "掷出了" + commd.DicePoint.ToString() + "点！");
+                    }
+                    else if (winInfo.MSGKind == "WinInfo" && winInfo.WinChess == 4)
+                    {
+                        ChangeTextSafe(winInfo.Host + "赢了");
                     }
                 }
             }
@@ -288,7 +357,7 @@ namespace FlightChessClient
             {
                 sixTimes++;
             }
-            else if (points != 6|| sixTimes == 2)
+            if (points != 6 || sixTimes == 2)
             {
                 sixTimes = 0;
                 utils.mainFrm.SendStr("C");
@@ -303,13 +372,25 @@ namespace FlightChessClient
             ChessToMove(thisChess);
             if (thisChess.isStart)
             {
-                Chessinfo sendChessPosition = new Chessinfo("Chess", utils.Userinfo.Username, thisChess.Name, thisChess.localRow(board), thisChess.nowLocal, 2);
+                Chessinfo sendChessPosition = null;
+                if (thisChess.nowLocal == -1)
+                {
+                    int temp = thisChess.localRow(board) - 1;
+                    if (temp == 0) temp = 4;
+                    sendChessPosition = new Chessinfo("Chess", utils.Userinfo.Username, thisChess.Name, temp, 12, 2);
+                    CheckChesses(thisChess.nowRow[0].beforeRow[12], thisChess);
+                }
+                else
+                {
+                    sendChessPosition = new Chessinfo("Chess", utils.Userinfo.Username, thisChess.Name, thisChess.localRow(board), thisChess.nowLocal, 2);
+                    CheckChesses(thisChess.nowRow[thisChess.nowLocal], thisChess);
+                }
                 utils.mainFrm.SendChessMSG(sendChessPosition);
             }
         }
         private void CheckChesses(ChessBock bock, Chess ind)
         {
-            if (bock.nowChess != null && bock.nowChess.ChessColor==ind.ChessColor)
+            if (bock.nowChess != null && bock.nowChess.ChessColor == ind.ChessColor)
             {
                 foreach (var chess in bock.nowChess.otherChess)
                 {
@@ -358,14 +439,31 @@ namespace FlightChessClient
                     }
                 }
             }
+            else if (bock.nowChess != null && bock.nowChess.ChessColor != ind.ChessColor&&ind.host==utils.Userinfo.Username)
+            {
+                Chessinfo sendMSG = new Chessinfo("Chess", utils.Userinfo.Username, bock.nowChess.host, bock.nowChess.otherChess.Count, -1, 3);
+                goBackHome(bock.nowChess);
+                utils.mainFrm.SendChessMSG(sendMSG);
+            }
             bock.nowChess = ind;
         }
         private void ChessToMove(Chess temp)
         {
-            if(!temp.isStart) CheckChessStart(temp);
-            if(temp.isStart)
+            if (!temp.isStart)
             {
-                if (temp.nowLocal == -1) temp.nowRow[12].nowChess = null;
+                if (!WaitArea.Contains(temp))
+                {
+                    isFirstSix = false;
+                }
+                else
+                {
+                    isFirstSix = true;
+                }
+            }
+            if (!temp.isStart) CheckChessStart(temp);
+            if (temp.isStart)
+            {
+                if (temp.nowLocal == -1) temp.nowRow[0].beforeRow[12].nowChess = null;
                 else temp.nowRow[temp.nowLocal].nowChess = null;
                 if (!temp.inLast)
                 {
@@ -403,18 +501,16 @@ namespace FlightChessClient
                         {
                             temp.nowLocal = 6 - (temp.nowLocal - 6) - 2;
                             temp.Location = new Point(temp.nowRow[temp.nowLocal].Localx - 20, temp.nowRow[temp.nowLocal].Localy - 20);
-                            CheckChesses(temp.nowRow[temp.nowLocal], temp);
                             System.Console.WriteLine(temp.Location.X.ToString() + " " + temp.Location.Y.ToString());
                         }
                         else if (temp.nowLocal == 5)
                         {
                             temp.Location = new Point(temp.nowRow[temp.nowLocal].Localx - 20, temp.nowRow[temp.nowLocal].Localy - 20);
-                            MessageBox.Show("You Win!");
+                            sendWinInfo(temp);
                         }
                         else
                         {
                             temp.Location = new Point(temp.nowRow[temp.nowLocal].Localx - 20, temp.nowRow[temp.nowLocal].Localy - 20);
-                            CheckChesses(temp.nowRow[temp.nowLocal], temp);
                             System.Console.WriteLine(temp.Location.X.ToString() + " " + temp.Location.Y.ToString());
                         }
                     }
@@ -424,12 +520,11 @@ namespace FlightChessClient
                         temp.nowLocal = -1;
                         temp.nowLocal += points;
                         temp.Location = new Point(temp.nowRow[temp.nowLocal].Localx - 20, temp.nowRow[temp.nowLocal].Localy - 20);
-                        CheckChesses(temp.nowRow[temp.nowLocal], temp);
                         System.Console.WriteLine(temp.Location.X.ToString() + " " + temp.Location.Y.ToString());
                         if (temp.nowLocal == 5)
                         {
                             temp.Location = new Point(temp.nowRow[temp.nowLocal].Localx - 20, temp.nowRow[temp.nowLocal].Localy - 20);
-                            MessageBox.Show("You Win!");
+                            sendWinInfo(temp);
                         }
                     }
                 }
@@ -449,13 +544,11 @@ namespace FlightChessClient
                             ind.nowRow = ind.nowRow[j].LastRow;
                             ind.nowLocal = ind.nowLocal - j - 1;
                             ind.Location = new Point(ind.nowRow[ind.nowLocal].Localx - 20, ind.nowRow[ind.nowLocal].Localy - 20);
-                            CheckChesses(ind.nowRow[ind.nowLocal], ind);
                             System.Console.WriteLine(ind.Location.X.ToString() + " " + ind.Location.Y.ToString());
                         }
                         else
                         {
                             ind.Location = new Point(ind.nowRow[ind.nowLocal].Localx - 20, ind.nowRow[ind.nowLocal].Localy - 20);
-                            CheckChesses(ind.nowRow[ind.nowLocal], ind);
                             System.Console.WriteLine(ind.Location.X.ToString() + " " + ind.Location.Y.ToString());
                         }
                         return;
@@ -474,7 +567,6 @@ namespace FlightChessClient
                 ind.nowRow = ind.nowRow[12].nextRow;
             }
             ind.Location = new Point(ind.nowRow[ind.nowLocal].Localx - 20, ind.nowRow[ind.nowLocal].Localy - 20);
-            CheckChesses(ind.nowRow[ind.nowLocal], ind);
         }
         private void CheckChessStart(Chess ind)
         {
@@ -484,7 +576,10 @@ namespace FlightChessClient
                 ind.parentBox.SendToBack();
                 ind.parentBox.BringToFront();
                 isFirstSix = true;
+                pictureBox1.Controls.Add(ind);
                 ind.Parent = this.pictureBox1;
+                CheckWaitArea();
+                WaitArea.Add(ind);
                 ind.Location = ind.ChessStartArea;
                 Chessinfo sendStartInfo = new Chessinfo("Chess", utils.Userinfo.Username, ind.Name, -1, -1, 1);
                 utils.mainFrm.SendChessMSG(sendStartInfo);
@@ -494,12 +589,61 @@ namespace FlightChessClient
             {
                 ind.isStart = true;
                 isFirstSix = false;
+                WaitArea.Remove(ind);
+                DispordWaitArea();
             }
         }
-
+        private void CheckWaitArea()
+        {
+            if (WaitArea.Count != 0)
+            {
+                foreach (var chess in WaitArea)
+                {
+                    chess.Enabled = false;
+                }
+            }
+        }
+        private void DispordWaitArea()
+        {
+            if (WaitArea.Count != 0)
+            {
+                WaitArea.Last<Chess>().Enabled = true;
+            }
+            pictureBox1.SendToBack();
+        }
+        private void sendWinInfo(Chess chess)
+        {
+            WinChesses += chess.otherChess.Count();
+            WinInfo msg = new WinInfo("WinInfo", utils.Userinfo.Username, WinChesses);
+            utils.mainFrm.SendWinMSG(msg);
+        }
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             System.Console.WriteLine(MousePosition.X.ToString() + "," + MousePosition.Y.ToString());
+        }
+        //
+        //回家
+        //
+        private void goBackHome(Chess ind)
+        {
+            foreach (var chess in ind.otherChess)
+            {
+                chess.Show();
+                chess.Image = chess.OrginImage;
+                chess.parentBox.Controls.Add(chess);
+                chess.Parent = chess.parentBox;
+                chess.Location = chess.ChessOrigin;
+                chess.Width = chess.Width * 2;
+                chess.Height = chess.Height * 2;
+                chess.isChange = false;
+                chess.nowRow = chess.startRow;
+                chess.nowLocal = 0;
+                chess.isStart = false;
+            }
+            ind.otherChess.Clear();
+            ind.otherChess.Add(ind);
+            Chessinfo sendBackhomeinfo = new Chessinfo("Chess", utils.Userinfo.Username, ind.Name, -1, -1, 3);
+            utils.mainFrm.SendChessMSG(sendBackhomeinfo);
         }
     }
 }
