@@ -16,6 +16,7 @@ namespace FlightChessClient
 {
     public partial class Game : Form
     {
+        public ClientWebSocket clientWebSocket = new ClientWebSocket();
         private Button myDice = null;
         public int round = 0;
         private ThreadStart listeningService;
@@ -39,6 +40,7 @@ namespace FlightChessClient
 
         private void Game_Load(object sender, EventArgs e)
         {
+            clientWebSocket.ConnectAsync(new Uri("ws://127.0.0.1:9001"), CancellationToken.None).Wait();
             CheckForIllegalCrossThreadCalls = false;
             switch (round)
             {
@@ -182,13 +184,12 @@ namespace FlightChessClient
         {
             while (true)
             {
-                if (utils.mainFrm.clientWebSocket.State == WebSocketState.Open)
+                if (clientWebSocket.State == WebSocketState.Open)
                 {
                     var buffer = new byte[1024];
                     ArraySegment<byte> bytesToRev = new ArraySegment<byte>(buffer);
-                    var res = utils.mainFrm.clientWebSocket.ReceiveAsync(bytesToRev, CancellationToken.None).Result;
+                    var res = clientWebSocket.ReceiveAsync(bytesToRev, CancellationToken.None).Result;
                     string temp = Encoding.UTF8.GetString(buffer, 0, res.Count);
-                    System.Console.WriteLine(temp);
                     Chessinfo chessinfo = new Chessinfo();
                     Commd commd = new Commd();
                     WinInfo winInfo = new WinInfo();
@@ -267,7 +268,7 @@ namespace FlightChessClient
                             REVChess.Location = new Point(REVChess.nowRow[REVChess.nowLocal].Localx - 20, REVChess.nowRow[REVChess.nowLocal].Localy - 20);
                             CheckChesses(REVChess.nowRow[REVChess.nowLocal], REVChess);
                         }
-                        else if (chessinfo.States == 3 && chessinfo.ChessRow==-1)
+                        else if (chessinfo.States == 3 && chessinfo.ChessRow == -1)
                         {
                             Chess REVChess = null;
                             foreach (var chess in pictureBox1.Controls.OfType<Chess>())
@@ -312,6 +313,12 @@ namespace FlightChessClient
                     else if (winInfo.MSGKind == "WinInfo" && winInfo.WinChess == 4)
                     {
                         ChangeTextSafe(winInfo.Host + "赢了");
+                        utils.mainFrm.SendStr("tableEND");
+                        DialogResult result = MessageBox.Show("游戏结束", "赢家是: "+winInfo.Host+"!", MessageBoxButtons.OKCancel);
+                        if (result == DialogResult.OK || result == DialogResult.Cancel || result == DialogResult.Abort)
+                        {
+                            this.Close(); 
+                        }
                     }
                 }
             }
@@ -439,7 +446,7 @@ namespace FlightChessClient
                     }
                 }
             }
-            else if (bock.nowChess != null && bock.nowChess.ChessColor != ind.ChessColor&&ind.host==utils.Userinfo.Username)
+            else if (bock.nowChess != null && bock.nowChess.ChessColor != ind.ChessColor && ind.host == utils.Userinfo.Username)
             {
                 Chessinfo sendMSG = new Chessinfo("Chess", utils.Userinfo.Username, bock.nowChess.host, bock.nowChess.otherChess.Count, -1, 3);
                 goBackHome(bock.nowChess);
@@ -644,6 +651,12 @@ namespace FlightChessClient
             ind.otherChess.Add(ind);
             Chessinfo sendBackhomeinfo = new Chessinfo("Chess", utils.Userinfo.Username, ind.Name, -1, -1, 3);
             utils.mainFrm.SendChessMSG(sendBackhomeinfo);
+        }
+
+        private void Game_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            listening.Abort();
+            this.Dispose();
         }
     }
 }

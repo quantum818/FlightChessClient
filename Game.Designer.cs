@@ -417,6 +417,7 @@ namespace FlightChessClient
             this.Controls.Add(this.pictureBox1);
             this.Name = "Game";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Game_FormClosing);
             this.Load += new System.EventHandler(this.Game_Load);
             this.YellowTeam.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Chess_y4)).EndInit();

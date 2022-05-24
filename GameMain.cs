@@ -16,7 +16,7 @@ namespace FlightChessClient
 {
     public partial class GameMain : Form
     {
-        public int round=-1;
+        public int round = -1;
         public ClientWebSocket clientWebSocket = new ClientWebSocket();
         private delegate void SafeWriteDelegate(string text);
         private delegate void SafeCloseDelegate();
@@ -24,8 +24,8 @@ namespace FlightChessClient
         public JSONinfo TsJSON = new JSONinfo();
         private ThreadStart listeningService;
         private Thread listening;
-        private Game game = null;
-        private GameHall gameHall = null;
+        public Game game = null;
+        public GameHall gameHall = null;
         public List<String> players = new List<string>(4);
         public GameMain()
         {
@@ -39,6 +39,7 @@ namespace FlightChessClient
             clientWebSocket.ConnectAsync(new Uri("ws://127.0.0.1:9001"), CancellationToken.None).Wait();
             listeningService = new ThreadStart(GetMSG);
             listening = new Thread(listeningService);
+            listening.Name = "服务器监听";
             listening.Start();
             gameHall.Show();
         }
@@ -64,20 +65,23 @@ namespace FlightChessClient
                         }
                         else if (TsJSON.MSGKind == "game")
                         {
+                            if (TsJSON.sendHost != utils.Userinfo.Username)
+                            {
+                                WriteTextSafeR(TsJSON.timeNow + " " + TsJSON.sendHost + "加入了房间\r\n");
+                            }
                             if (TsJSON.MSG == "start")
                             {
                                 //OpenFormSafe();
                                 game = new Game();
                                 game.round = round;
                                 game.OpenFormSafe(this);
-                                listening.Abort();
                             }
                             else
                             {
                                 players.Add(TsJSON.sendHost);
                             }
                         }
-                        else if(TsJSON.MSGKind == "round")
+                        else if (TsJSON.MSGKind == "round")
                         {
                             if (TsJSON.sendHost == utils.Userinfo.Username)
                             {
@@ -138,7 +142,18 @@ namespace FlightChessClient
                 gameHall.ChatRoom.Text += text;
             }
         }
-
+        private void WriteTextSafeR(string text)
+        {
+            if (gameHall.RoomInfo.InvokeRequired)
+            {
+                var d = new SafeWriteDelegate(WriteTextSafeR);
+                gameHall.RoomInfo.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                gameHall.RoomInfo.Text += text;
+            }
+        }
         private void GameMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             listening.Abort();

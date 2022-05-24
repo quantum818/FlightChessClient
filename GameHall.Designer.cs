@@ -37,8 +37,9 @@ namespace FlightChessClient
             this.ClassGroupLAB = new System.Windows.Forms.Label();
             this.desLAB = new System.Windows.Forms.Label();
             this.personalInfo = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.RoomInfo = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,16 +118,7 @@ namespace FlightChessClient
             this.personalInfo.TabIndex = 9;
             this.personalInfo.Text = "个人信息";
             this.personalInfo.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::FlightChessClient.Properties.Resources.pic;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(90, 122);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
+            this.personalInfo.Click += new System.EventHandler(this.personalInfo_Click);
             // 
             // button1
             // 
@@ -139,12 +131,32 @@ namespace FlightChessClient
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // RoomInfo
+            // 
+            this.RoomInfo.Location = new System.Drawing.Point(755, 380);
+            this.RoomInfo.Multiline = true;
+            this.RoomInfo.Name = "RoomInfo";
+            this.RoomInfo.ReadOnly = true;
+            this.RoomInfo.Size = new System.Drawing.Size(232, 148);
+            this.RoomInfo.TabIndex = 11;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::FlightChessClient.Properties.Resources.pic;
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(90, 122);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
+            // 
             // GameHall
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 540);
             this.ControlBox = false;
+            this.Controls.Add(this.RoomInfo);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.personalInfo);
             this.Controls.Add(this.desLAB);
@@ -176,5 +188,6 @@ namespace FlightChessClient
         private System.Windows.Forms.Label desLAB;
         private System.Windows.Forms.Button personalInfo;
         private System.Windows.Forms.Button button1;
+        public System.Windows.Forms.TextBox RoomInfo;
     }
 }

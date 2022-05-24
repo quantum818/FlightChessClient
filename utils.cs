@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +20,7 @@ namespace FlightChessClient
             private static int classnum;
             private static string description = "";
             private static string logtime = "";
+            private static long account = 0;
             public static string Username
             {
                 get {
@@ -69,7 +71,7 @@ namespace FlightChessClient
                 MySqlConnection connection = new MySqlConnection(connStr);
                 connection.Open();
                 DataSet temp = new DataSet();
-                String sltStr = "select classname,classnum,description,datein from Loginfo where username = " + "'" + username + "';";
+                String sltStr = "select classname,classnum,description,datein,account from Loginfo where username = " + "'" + username + "';";
                 MySqlDataAdapter dataAdapter = new MySqlDataAdapter(sltStr, connection);
                 MySqlCommandBuilder mySqlCommandBuilder = new MySqlCommandBuilder(dataAdapter);
                 dataAdapter.Fill(temp, "temptb");
@@ -85,6 +87,7 @@ namespace FlightChessClient
                         case 1: classnum = int.Parse(data.ToString()); break;
                         case 2: description = data.ToString(); break;
                         case 3: logtime = data.ToString(); break;
+                        case 4: account = int.Parse(data.ToString()); break;
                         default: break;
                     }
                     count++;
@@ -94,7 +97,7 @@ namespace FlightChessClient
             {
                 MySqlConnection connection = new MySqlConnection(connStr);
                 connection.Open();
-                string sltStr = "update Loginfo description ='" + description + "' where username=" + "'" + username + "';";
+                string sltStr = "update Loginfo set description ='" + description + "'" + ",username='" + username + "' where account=" + "'" + account + "';";//需要修改更改完后的database检索条件
                 MySqlCommand cmd = new MySqlCommand(sltStr, connection);
                 int res = cmd.ExecuteNonQuery();
                 connection.Close();
@@ -104,48 +107,48 @@ namespace FlightChessClient
             {
                 MySqlConnection connection = new MySqlConnection(connStr);
                 connection.Open();
-                string sltStr = "update Loginfo classnum ='" + classnum.ToString() + "' where username=" + "'" + username + "';";
+                string sltStr = "update Loginfo set classnum ='" + classnum.ToString() + "' where username=" + "'" + username + "';";
                 MySqlCommand cmd = new MySqlCommand(sltStr, connection);
                 int res = cmd.ExecuteNonQuery();
                 if (classnum >= 10 && classnum < 25 && classname != "初级炮灰")
                 {
                     classname = "初级炮灰";
-                    sltStr = "update Loginfo classname ='" + classnum.ToString() + "' where username=" + "'" + username + "';";
+                    sltStr = "update Loginfo set classname ='" + classnum.ToString() + "' where username=" + "'" + username + "';";
                     cmd = new MySqlCommand(sltStr, connection);
                     res = cmd.ExecuteNonQuery();
                 }
                 else if (classnum >= 25 && classnum < 40 && classname != "中级炮灰")
                 {
                     classname = "中级炮灰";
-                    sltStr = "update Loginfo classname ='" + classnum.ToString() + "' where username=" + "'" + username + "';";
+                    sltStr = "update Loginfo set classname ='" + classnum.ToString() + "' where username=" + "'" + username + "';";
                     cmd = new MySqlCommand(sltStr, connection);
                     res = cmd.ExecuteNonQuery();
                 }
                 else if (classnum >= 40 && classnum < 50 && classname != "高级炮灰")
                 {
                     classname = "高级炮灰";
-                    sltStr = "update Loginfo classname ='" + classnum.ToString() + "' where username=" + "'" + username + "';";
+                    sltStr = "update Loginfo set classname  ='" + classnum.ToString() + "' where username=" + "'" + username + "';";
                     cmd = new MySqlCommand(sltStr, connection);
                     res = cmd.ExecuteNonQuery();
                 }
                 else if (classnum >= 50 && classnum < 60 && classname != "终级炮灰")
                 {
                     classname = "终级炮灰";
-                    sltStr = "update Loginfo classname ='" + classnum.ToString() + "' where username=" + "'" + username + "';";
+                    sltStr = "update Loginfo set classname  ='" + classnum.ToString() + "' where username=" + "'" + username + "';";
                     cmd = new MySqlCommand(sltStr, connection);
                     res = cmd.ExecuteNonQuery();
                 }
                 else if (classnum >= 60 && classnum<75 && classname != "新米飞行员")
                 {
                     classname = "新米飞行员";
-                    sltStr = "update Loginfo classname ='" + classnum.ToString() + "' where username=" + "'" + username + "';";
+                    sltStr = "update Loginfo set classname ='" + classnum.ToString() + "' where username=" + "'" + username + "';";
                     cmd = new MySqlCommand(sltStr, connection);
                     res = cmd.ExecuteNonQuery();
                 }
                 else if (classnum >= 75 && classnum < 80 && classname != "米娜·底特瑞奇·威欧克")
                 {
                     classname = "米娜·底特瑞奇·威欧克";
-                    sltStr = "update Loginfo classname ='" + classnum.ToString() + "' where username=" + "'" + username + "';";
+                    sltStr = "update Loginfo set classname  ='" + classnum.ToString() + "' where username=" + "'" + username + "';";
                     cmd = new MySqlCommand(sltStr, connection);
                     res = cmd.ExecuteNonQuery();
                 }

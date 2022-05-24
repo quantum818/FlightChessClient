@@ -26,10 +26,7 @@ namespace FlightChessClient
         private void GameHall_Load(object sender, EventArgs e)
         { 
             this.MdiParent = utils.mainFrm;
-            NameLAB.Text = NameLAB.Text + utils.Userinfo.Username;
-            ClassLAB.Text = ClassLAB.Text + utils.Userinfo.Classnum.ToString();
-            ClassGroupLAB.Text = ClassGroupLAB.Text + utils.Userinfo.Classname;
-            desLAB.Text = desLAB.Text + utils.Userinfo.Description;
+            ChangeInfoText();
         }
 
         private void sendMsg_Click(object sender, EventArgs e)
@@ -41,6 +38,21 @@ namespace FlightChessClient
         private void button1_Click(object sender, EventArgs e)
         {
             utils.mainFrm.SendMSG(new JSONinfo("game", DateTime.Now.Hour.ToString() + ":" + DateTime.Now.Minute.ToString() + ":" + DateTime.Now.Second.ToString(), utils.Userinfo.Username, "table1"));
+            RoomInfo.Text += DateTime.Now.Hour.ToString() + ":" + DateTime.Now.Minute.ToString() + ":" + DateTime.Now.Second.ToString() + " " + "你进入了房间1\r\n";
+        }
+
+        private void personalInfo_Click(object sender, EventArgs e)
+        {
+            UserInfoForm infoForm = new UserInfoForm();
+            infoForm.MdiParent = utils.mainFrm;
+            infoForm.Show();
+        }
+        public void ChangeInfoText()
+        {
+            NameLAB.Text = "昵称: " + utils.Userinfo.Username;
+            ClassLAB.Text = "等级: " + utils.Userinfo.Classnum.ToString();
+            ClassGroupLAB.Text = "称号: " + utils.Userinfo.Classname;
+            desLAB.Text = "个性签名: " + utils.Userinfo.Description;
         }
     }
 }
