@@ -32,7 +32,9 @@ namespace FlightChessClient
         private Boolean isFirstSix = false;
         private Boolean REVMSG = false;
         private List<Chess> WaitArea = new List<Chess>();
+        private List<Chess> playersChess = new List<Chess>();
         public ChessBoard board = new ChessBoard();
+        private int ativeChesses = 0, timercount = 60;
         public Game()
         {
             InitializeComponent();
@@ -58,6 +60,10 @@ namespace FlightChessClient
                     YellowTeam.Text = player;
                     foreach (Chess chess in YellowTeam.Controls.OfType<Chess>())
                     {
+                        if (player == utils.Userinfo.Username)
+                        {
+                            playersChess.Add(chess);
+                        }
                         chess.host = player;
                         chess.ChessColor = i;
                         chess.LastRow = board.LastRowY;
@@ -68,6 +74,10 @@ namespace FlightChessClient
                     GreenTeam.Text = player;
                     foreach (Chess chess in GreenTeam.Controls.OfType<Chess>())
                     {
+                        if (player == utils.Userinfo.Username)
+                        {
+                            playersChess.Add(chess);
+                        }
                         chess.host = player;
                         chess.ChessColor = i;
                         chess.LastRow = board.LastRowG;
@@ -78,6 +88,10 @@ namespace FlightChessClient
                     RedTeam.Text = player;
                     foreach (Chess chess in RedTeam.Controls.OfType<Chess>())
                     {
+                        if (player == utils.Userinfo.Username)
+                        {
+                            playersChess.Add(chess);
+                        }
                         chess.host = player;
                         chess.ChessColor = i;
                         chess.LastRow = board.LastRowR;
@@ -88,6 +102,10 @@ namespace FlightChessClient
                     BlueTeam.Text = player;
                     foreach (Chess chess in BlueTeam.Controls.OfType<Chess>())
                     {
+                        if (player == utils.Userinfo.Username)
+                        {
+                            playersChess.Add(chess);
+                        }
                         chess.host = player;
                         chess.ChessColor = i;
                         chess.LastRow = board.LastRowB;
@@ -105,6 +123,7 @@ namespace FlightChessClient
             if (round == 1) myDice.Enabled = true;
             foreach (var chess in BlueTeam.Controls.OfType<Chess>())
             {
+                chess.Enabled = false;
                 chess.OrginImage = chess.Image;
                 chess.ChessColor = 2;
                 chess.ChessOrigin = chess.Location;
@@ -115,6 +134,7 @@ namespace FlightChessClient
             }
             foreach (var chess in RedTeam.Controls.OfType<Chess>())
             {
+                chess.Enabled = false;
                 chess.OrginImage = chess.Image;
                 chess.ChessColor = 1;
                 chess.ChessOrigin = chess.Location;
@@ -125,6 +145,7 @@ namespace FlightChessClient
             }
             foreach (var chess in GreenTeam.Controls.OfType<Chess>())
             {
+                chess.Enabled = false;
                 chess.OrginImage = chess.Image;
                 chess.ChessColor = 0;
                 chess.ChessOrigin = chess.Location;
@@ -135,6 +156,7 @@ namespace FlightChessClient
             }
             foreach (var chess in YellowTeam.Controls.OfType<Chess>())
             {
+                chess.Enabled = false;
                 chess.OrginImage = chess.Image;
                 chess.ChessColor = 3;
                 chess.ChessOrigin = chess.Location;
@@ -279,6 +301,10 @@ namespace FlightChessClient
                                     break;
                                 }
                             }
+                            if (REVChess.host == utils.Userinfo.Username)
+                            {
+                                ativeChesses = ativeChesses - REVChess.otherChess.Count();
+                            }
                             foreach (var chess in REVChess.otherChess)
                             {
                                 chess.Show();
@@ -297,7 +323,7 @@ namespace FlightChessClient
                             REVChess.otherChess.Add(REVChess);
                         }
                     }
-                    if (chessinfo.MSGKind == "Chess" && chessinfo.States == 3 && chessinfo.ChessRow != -1)//此处更改为单次条件控制解决单边显示问题，未验证
+                    if (chessinfo.MSGKind == "Chess" && chessinfo.States == 3 && chessinfo.ChessRow != -1)
                     {
                         ChangeTextSafe(chessinfo.sendHost + "击坠了" + chessinfo.ChessName + " " + chessinfo.ChessRow + "架飞机！");
                     }
@@ -359,6 +385,7 @@ namespace FlightChessClient
         private void CommonClick()
         {
             utils.mainFrm.SendStr(round.ToString());
+            activeChess();
             while (!REVMSG) { }
             if (points == 6)
             {
@@ -367,14 +394,24 @@ namespace FlightChessClient
             if (points != 6 || sixTimes == 2)
             {
                 sixTimes = 0;
-                utils.mainFrm.SendStr("C");
                 myDice.Enabled = false;
+                if (ativeChesses==0)
+                {
+                    utils.mainFrm.SendStr("C");
+                }
+                else
+                {
+                    timer1.Enabled = true;
+                    timer2.Enabled = true;
+                }
             }
             REVMSG = false;
         }
 
         private void Chess_Click(object sender, EventArgs e)
         {
+            timer1.Enabled = false;
+            timer2.Enabled = false;
             Chess thisChess = (Chess)sender;
             ChessToMove(thisChess);
             if (thisChess.isStart)
@@ -394,6 +431,12 @@ namespace FlightChessClient
                 }
                 utils.mainFrm.SendChessMSG(sendChessPosition);
             }
+            if (points != 6 || sixTimes != 1)
+            {
+                utils.mainFrm.SendStr("C");
+            }
+            timercount = 60;
+            inactiveChess();
         }
         private void CheckChesses(ChessBock bock, Chess ind)
         {
@@ -514,6 +557,8 @@ namespace FlightChessClient
                         {
                             temp.Location = new Point(temp.nowRow[temp.nowLocal].Localx - 20, temp.nowRow[temp.nowLocal].Localy - 20);
                             sendWinInfo(temp);
+                            temp.Enabled = false;
+                            ativeChesses = ativeChesses - temp.otherChess.Count();
                         }
                         else
                         {
@@ -532,6 +577,8 @@ namespace FlightChessClient
                         {
                             temp.Location = new Point(temp.nowRow[temp.nowLocal].Localx - 20, temp.nowRow[temp.nowLocal].Localy - 20);
                             sendWinInfo(temp);
+                            temp.Enabled = false;
+                            ativeChesses = ativeChesses - temp.otherChess.Count();
                         }
                     }
                 }
@@ -579,6 +626,7 @@ namespace FlightChessClient
         {
             if (points == 6 && !isFirstSix)
             {
+                ativeChesses++;
                 this.Controls.Add(ind);
                 ind.parentBox.SendToBack();
                 ind.parentBox.BringToFront();
@@ -655,6 +703,7 @@ namespace FlightChessClient
 
         private void Game_FormClosing(object sender, FormClosingEventArgs e)
         {
+            utils.mainFrm.SendStr("tableEND");
             listening.Abort();
             clientWebSocket.Abort();
             this.Dispose();
@@ -664,6 +713,38 @@ namespace FlightChessClient
         {
             WinInfo msg = new WinInfo("WinInfo", utils.Userinfo.Username, 4);
             utils.mainFrm.SendWinMSG(msg);
+        }
+        private void activeChess()
+        {
+            foreach(var chess in playersChess)
+            {
+                chess.Enabled = true;
+            }
+        }
+        private void inactiveChess()
+        {
+            foreach (var chess in playersChess)
+            {
+                chess.Enabled = false;
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            utils.mainFrm.SendStr("C");
+            timercount = 60;
+            timer2.Enabled = false;
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            GameInfo.Text = utils.Userinfo.Username + "投掷了" + points.ToString() + "点" + " " + timercount.ToString();
+            timercount--;
+            if (timercount == 0)
+            {
+                timer2.Enabled = false;
+                GameInfo.Text = "对战中：时间耗尽！";
+            }
         }
     }
 }

@@ -31,53 +31,54 @@ namespace FlightChessClient
         {
             this.components = new System.ComponentModel.Container();
             this.YellowTeam = new System.Windows.Forms.GroupBox();
-            this.Chess_y4 = new FlightChessClient.Chess(this.components);
-            this.Chess_y2 = new FlightChessClient.Chess(this.components);
-            this.Chess_y3 = new FlightChessClient.Chess(this.components);
-            this.Chess_y1 = new FlightChessClient.Chess(this.components);
             this.GreenTeam = new System.Windows.Forms.GroupBox();
-            this.Chess_g4 = new FlightChessClient.Chess(this.components);
-            this.Chess_g3 = new FlightChessClient.Chess(this.components);
-            this.Chess_g2 = new FlightChessClient.Chess(this.components);
-            this.Chess_g1 = new FlightChessClient.Chess(this.components);
             this.BlueTeam = new System.Windows.Forms.GroupBox();
-            this.Chess_b4 = new FlightChessClient.Chess(this.components);
-            this.Chess_b3 = new FlightChessClient.Chess(this.components);
-            this.Chess_b2 = new FlightChessClient.Chess(this.components);
-            this.Chess_b1 = new FlightChessClient.Chess(this.components);
             this.RedTeam = new System.Windows.Forms.GroupBox();
-            this.Chess_r4 = new FlightChessClient.Chess(this.components);
-            this.Chess_r3 = new FlightChessClient.Chess(this.components);
-            this.Chess_r2 = new FlightChessClient.Chess(this.components);
-            this.Chess_r1 = new FlightChessClient.Chess(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.GameInfo = new System.Windows.Forms.Label();
             this.YellowDice = new System.Windows.Forms.Button();
             this.BlueDice = new System.Windows.Forms.Button();
             this.GreenDice = new System.Windows.Forms.Button();
             this.RedDice = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Chess_r4 = new FlightChessClient.Chess(this.components);
+            this.Chess_r3 = new FlightChessClient.Chess(this.components);
+            this.Chess_r2 = new FlightChessClient.Chess(this.components);
+            this.Chess_r1 = new FlightChessClient.Chess(this.components);
+            this.Chess_b4 = new FlightChessClient.Chess(this.components);
+            this.Chess_b3 = new FlightChessClient.Chess(this.components);
+            this.Chess_b2 = new FlightChessClient.Chess(this.components);
+            this.Chess_b1 = new FlightChessClient.Chess(this.components);
+            this.Chess_g4 = new FlightChessClient.Chess(this.components);
+            this.Chess_g3 = new FlightChessClient.Chess(this.components);
+            this.Chess_g2 = new FlightChessClient.Chess(this.components);
+            this.Chess_g1 = new FlightChessClient.Chess(this.components);
+            this.Chess_y4 = new FlightChessClient.Chess(this.components);
+            this.Chess_y2 = new FlightChessClient.Chess(this.components);
+            this.Chess_y3 = new FlightChessClient.Chess(this.components);
+            this.Chess_y1 = new FlightChessClient.Chess(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.YellowTeam.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_y4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_y2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_y3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_y1)).BeginInit();
             this.GreenTeam.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_g4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_g3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_g2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_g1)).BeginInit();
             this.BlueTeam.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_b4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_b3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_b2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_b1)).BeginInit();
             this.RedTeam.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Chess_r4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Chess_r3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Chess_r2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Chess_r1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_b4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_b3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_b2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_b1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_g4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_g3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_g2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_g1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_y4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_y2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_y3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_y1)).BeginInit();
             this.SuspendLayout();
             // 
             // YellowTeam
@@ -95,54 +96,6 @@ namespace FlightChessClient
             this.YellowTeam.TabStop = false;
             this.YellowTeam.Text = "groupBox1";
             // 
-            // Chess_y4
-            // 
-            this.Chess_y4.BackColor = System.Drawing.Color.Transparent;
-            this.Chess_y4.Image = global::FlightChessClient.Properties.Resources.chessY1;
-            this.Chess_y4.Location = new System.Drawing.Point(110, 99);
-            this.Chess_y4.Name = "Chess_y4";
-            this.Chess_y4.Size = new System.Drawing.Size(76, 69);
-            this.Chess_y4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Chess_y4.TabIndex = 5;
-            this.Chess_y4.TabStop = false;
-            this.Chess_y4.Click += new System.EventHandler(this.Chess_Click);
-            // 
-            // Chess_y2
-            // 
-            this.Chess_y2.BackColor = System.Drawing.Color.Transparent;
-            this.Chess_y2.Image = global::FlightChessClient.Properties.Resources.chessY1;
-            this.Chess_y2.Location = new System.Drawing.Point(110, 20);
-            this.Chess_y2.Name = "Chess_y2";
-            this.Chess_y2.Size = new System.Drawing.Size(76, 69);
-            this.Chess_y2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Chess_y2.TabIndex = 4;
-            this.Chess_y2.TabStop = false;
-            this.Chess_y2.Click += new System.EventHandler(this.Chess_Click);
-            // 
-            // Chess_y3
-            // 
-            this.Chess_y3.BackColor = System.Drawing.Color.Transparent;
-            this.Chess_y3.Image = global::FlightChessClient.Properties.Resources.chessY1;
-            this.Chess_y3.Location = new System.Drawing.Point(6, 99);
-            this.Chess_y3.Name = "Chess_y3";
-            this.Chess_y3.Size = new System.Drawing.Size(76, 69);
-            this.Chess_y3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Chess_y3.TabIndex = 3;
-            this.Chess_y3.TabStop = false;
-            this.Chess_y3.Click += new System.EventHandler(this.Chess_Click);
-            // 
-            // Chess_y1
-            // 
-            this.Chess_y1.BackColor = System.Drawing.Color.Transparent;
-            this.Chess_y1.Image = global::FlightChessClient.Properties.Resources.chessY1;
-            this.Chess_y1.Location = new System.Drawing.Point(6, 20);
-            this.Chess_y1.Name = "Chess_y1";
-            this.Chess_y1.Size = new System.Drawing.Size(76, 69);
-            this.Chess_y1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Chess_y1.TabIndex = 2;
-            this.Chess_y1.TabStop = false;
-            this.Chess_y1.Click += new System.EventHandler(this.Chess_Click);
-            // 
             // GreenTeam
             // 
             this.GreenTeam.BackColor = System.Drawing.Color.YellowGreen;
@@ -157,54 +110,6 @@ namespace FlightChessClient
             this.GreenTeam.TabIndex = 3;
             this.GreenTeam.TabStop = false;
             this.GreenTeam.Text = "groupBox2";
-            // 
-            // Chess_g4
-            // 
-            this.Chess_g4.BackColor = System.Drawing.Color.Transparent;
-            this.Chess_g4.Image = global::FlightChessClient.Properties.Resources.chessG1;
-            this.Chess_g4.Location = new System.Drawing.Point(110, 99);
-            this.Chess_g4.Name = "Chess_g4";
-            this.Chess_g4.Size = new System.Drawing.Size(76, 69);
-            this.Chess_g4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Chess_g4.TabIndex = 4;
-            this.Chess_g4.TabStop = false;
-            this.Chess_g4.Click += new System.EventHandler(this.Chess_Click);
-            // 
-            // Chess_g3
-            // 
-            this.Chess_g3.BackColor = System.Drawing.Color.Transparent;
-            this.Chess_g3.Image = global::FlightChessClient.Properties.Resources.chessG1;
-            this.Chess_g3.Location = new System.Drawing.Point(6, 99);
-            this.Chess_g3.Name = "Chess_g3";
-            this.Chess_g3.Size = new System.Drawing.Size(76, 69);
-            this.Chess_g3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Chess_g3.TabIndex = 3;
-            this.Chess_g3.TabStop = false;
-            this.Chess_g3.Click += new System.EventHandler(this.Chess_Click);
-            // 
-            // Chess_g2
-            // 
-            this.Chess_g2.BackColor = System.Drawing.Color.Transparent;
-            this.Chess_g2.Image = global::FlightChessClient.Properties.Resources.chessG1;
-            this.Chess_g2.Location = new System.Drawing.Point(110, 20);
-            this.Chess_g2.Name = "Chess_g2";
-            this.Chess_g2.Size = new System.Drawing.Size(76, 69);
-            this.Chess_g2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Chess_g2.TabIndex = 2;
-            this.Chess_g2.TabStop = false;
-            this.Chess_g2.Click += new System.EventHandler(this.Chess_Click);
-            // 
-            // Chess_g1
-            // 
-            this.Chess_g1.BackColor = System.Drawing.Color.Transparent;
-            this.Chess_g1.Image = global::FlightChessClient.Properties.Resources.chessG1;
-            this.Chess_g1.Location = new System.Drawing.Point(6, 20);
-            this.Chess_g1.Name = "Chess_g1";
-            this.Chess_g1.Size = new System.Drawing.Size(76, 69);
-            this.Chess_g1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Chess_g1.TabIndex = 1;
-            this.Chess_g1.TabStop = false;
-            this.Chess_g1.Click += new System.EventHandler(this.Chess_Click);
             // 
             // BlueTeam
             // 
@@ -221,54 +126,6 @@ namespace FlightChessClient
             this.BlueTeam.TabStop = false;
             this.BlueTeam.Text = "groupBox3";
             // 
-            // Chess_b4
-            // 
-            this.Chess_b4.BackColor = System.Drawing.Color.Transparent;
-            this.Chess_b4.Image = global::FlightChessClient.Properties.Resources.chessB1;
-            this.Chess_b4.Location = new System.Drawing.Point(110, 100);
-            this.Chess_b4.Name = "Chess_b4";
-            this.Chess_b4.Size = new System.Drawing.Size(76, 69);
-            this.Chess_b4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Chess_b4.TabIndex = 6;
-            this.Chess_b4.TabStop = false;
-            this.Chess_b4.Click += new System.EventHandler(this.Chess_Click);
-            // 
-            // Chess_b3
-            // 
-            this.Chess_b3.BackColor = System.Drawing.Color.Transparent;
-            this.Chess_b3.Image = global::FlightChessClient.Properties.Resources.chessB1;
-            this.Chess_b3.Location = new System.Drawing.Point(6, 100);
-            this.Chess_b3.Name = "Chess_b3";
-            this.Chess_b3.Size = new System.Drawing.Size(76, 69);
-            this.Chess_b3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Chess_b3.TabIndex = 5;
-            this.Chess_b3.TabStop = false;
-            this.Chess_b3.Click += new System.EventHandler(this.Chess_Click);
-            // 
-            // Chess_b2
-            // 
-            this.Chess_b2.BackColor = System.Drawing.Color.Transparent;
-            this.Chess_b2.Image = global::FlightChessClient.Properties.Resources.chessB1;
-            this.Chess_b2.Location = new System.Drawing.Point(110, 25);
-            this.Chess_b2.Name = "Chess_b2";
-            this.Chess_b2.Size = new System.Drawing.Size(76, 69);
-            this.Chess_b2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Chess_b2.TabIndex = 4;
-            this.Chess_b2.TabStop = false;
-            this.Chess_b2.Click += new System.EventHandler(this.Chess_Click);
-            // 
-            // Chess_b1
-            // 
-            this.Chess_b1.BackColor = System.Drawing.Color.Transparent;
-            this.Chess_b1.Image = global::FlightChessClient.Properties.Resources.chessB1;
-            this.Chess_b1.Location = new System.Drawing.Point(6, 25);
-            this.Chess_b1.Name = "Chess_b1";
-            this.Chess_b1.Size = new System.Drawing.Size(76, 69);
-            this.Chess_b1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Chess_b1.TabIndex = 3;
-            this.Chess_b1.TabStop = false;
-            this.Chess_b1.Click += new System.EventHandler(this.Chess_Click);
-            // 
             // RedTeam
             // 
             this.RedTeam.BackColor = System.Drawing.Color.MistyRose;
@@ -283,54 +140,6 @@ namespace FlightChessClient
             this.RedTeam.TabIndex = 5;
             this.RedTeam.TabStop = false;
             this.RedTeam.Text = "groupBox4";
-            // 
-            // Chess_r4
-            // 
-            this.Chess_r4.BackColor = System.Drawing.Color.Transparent;
-            this.Chess_r4.Image = global::FlightChessClient.Properties.Resources.chessR1;
-            this.Chess_r4.Location = new System.Drawing.Point(110, 99);
-            this.Chess_r4.Name = "Chess_r4";
-            this.Chess_r4.Size = new System.Drawing.Size(76, 69);
-            this.Chess_r4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Chess_r4.TabIndex = 3;
-            this.Chess_r4.TabStop = false;
-            this.Chess_r4.Click += new System.EventHandler(this.Chess_Click);
-            // 
-            // Chess_r3
-            // 
-            this.Chess_r3.BackColor = System.Drawing.Color.Transparent;
-            this.Chess_r3.Image = global::FlightChessClient.Properties.Resources.chessR1;
-            this.Chess_r3.Location = new System.Drawing.Point(6, 95);
-            this.Chess_r3.Name = "Chess_r3";
-            this.Chess_r3.Size = new System.Drawing.Size(76, 69);
-            this.Chess_r3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Chess_r3.TabIndex = 2;
-            this.Chess_r3.TabStop = false;
-            this.Chess_r3.Click += new System.EventHandler(this.Chess_Click);
-            // 
-            // Chess_r2
-            // 
-            this.Chess_r2.BackColor = System.Drawing.Color.Transparent;
-            this.Chess_r2.Image = global::FlightChessClient.Properties.Resources.chessR1;
-            this.Chess_r2.Location = new System.Drawing.Point(110, 20);
-            this.Chess_r2.Name = "Chess_r2";
-            this.Chess_r2.Size = new System.Drawing.Size(76, 69);
-            this.Chess_r2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Chess_r2.TabIndex = 1;
-            this.Chess_r2.TabStop = false;
-            this.Chess_r2.Click += new System.EventHandler(this.Chess_Click);
-            // 
-            // Chess_r1
-            // 
-            this.Chess_r1.BackColor = System.Drawing.Color.Transparent;
-            this.Chess_r1.Image = global::FlightChessClient.Properties.Resources.chessR1;
-            this.Chess_r1.Location = new System.Drawing.Point(6, 20);
-            this.Chess_r1.Name = "Chess_r1";
-            this.Chess_r1.Size = new System.Drawing.Size(76, 69);
-            this.Chess_r1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Chess_r1.TabIndex = 0;
-            this.Chess_r1.TabStop = false;
-            this.Chess_r1.Click += new System.EventHandler(this.Chess_Click);
             // 
             // pictureBox1
             // 
@@ -401,22 +210,213 @@ namespace FlightChessClient
             this.RedDice.UseVisualStyleBackColor = false;
             this.RedDice.Click += new System.EventHandler(this.RedDice_Click);
             // 
-            // button1
+            // Chess_r4
             // 
-            this.button1.Location = new System.Drawing.Point(854, 279);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Chess_r4.BackColor = System.Drawing.Color.Transparent;
+            this.Chess_r4.Image = global::FlightChessClient.Properties.Resources.chessR1;
+            this.Chess_r4.Location = new System.Drawing.Point(110, 99);
+            this.Chess_r4.Name = "Chess_r4";
+            this.Chess_r4.Size = new System.Drawing.Size(76, 69);
+            this.Chess_r4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Chess_r4.TabIndex = 3;
+            this.Chess_r4.TabStop = false;
+            this.Chess_r4.Click += new System.EventHandler(this.Chess_Click);
+            // 
+            // Chess_r3
+            // 
+            this.Chess_r3.BackColor = System.Drawing.Color.Transparent;
+            this.Chess_r3.Image = global::FlightChessClient.Properties.Resources.chessR1;
+            this.Chess_r3.Location = new System.Drawing.Point(6, 95);
+            this.Chess_r3.Name = "Chess_r3";
+            this.Chess_r3.Size = new System.Drawing.Size(76, 69);
+            this.Chess_r3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Chess_r3.TabIndex = 2;
+            this.Chess_r3.TabStop = false;
+            this.Chess_r3.Click += new System.EventHandler(this.Chess_Click);
+            // 
+            // Chess_r2
+            // 
+            this.Chess_r2.BackColor = System.Drawing.Color.Transparent;
+            this.Chess_r2.Image = global::FlightChessClient.Properties.Resources.chessR1;
+            this.Chess_r2.Location = new System.Drawing.Point(110, 20);
+            this.Chess_r2.Name = "Chess_r2";
+            this.Chess_r2.Size = new System.Drawing.Size(76, 69);
+            this.Chess_r2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Chess_r2.TabIndex = 1;
+            this.Chess_r2.TabStop = false;
+            this.Chess_r2.Click += new System.EventHandler(this.Chess_Click);
+            // 
+            // Chess_r1
+            // 
+            this.Chess_r1.BackColor = System.Drawing.Color.Transparent;
+            this.Chess_r1.Image = global::FlightChessClient.Properties.Resources.chessR1;
+            this.Chess_r1.Location = new System.Drawing.Point(6, 20);
+            this.Chess_r1.Name = "Chess_r1";
+            this.Chess_r1.Size = new System.Drawing.Size(76, 69);
+            this.Chess_r1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Chess_r1.TabIndex = 0;
+            this.Chess_r1.TabStop = false;
+            this.Chess_r1.Click += new System.EventHandler(this.Chess_Click);
+            // 
+            // Chess_b4
+            // 
+            this.Chess_b4.BackColor = System.Drawing.Color.Transparent;
+            this.Chess_b4.Image = global::FlightChessClient.Properties.Resources.chessB1;
+            this.Chess_b4.Location = new System.Drawing.Point(110, 100);
+            this.Chess_b4.Name = "Chess_b4";
+            this.Chess_b4.Size = new System.Drawing.Size(76, 69);
+            this.Chess_b4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Chess_b4.TabIndex = 6;
+            this.Chess_b4.TabStop = false;
+            this.Chess_b4.Click += new System.EventHandler(this.Chess_Click);
+            // 
+            // Chess_b3
+            // 
+            this.Chess_b3.BackColor = System.Drawing.Color.Transparent;
+            this.Chess_b3.Image = global::FlightChessClient.Properties.Resources.chessB1;
+            this.Chess_b3.Location = new System.Drawing.Point(6, 100);
+            this.Chess_b3.Name = "Chess_b3";
+            this.Chess_b3.Size = new System.Drawing.Size(76, 69);
+            this.Chess_b3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Chess_b3.TabIndex = 5;
+            this.Chess_b3.TabStop = false;
+            this.Chess_b3.Click += new System.EventHandler(this.Chess_Click);
+            // 
+            // Chess_b2
+            // 
+            this.Chess_b2.BackColor = System.Drawing.Color.Transparent;
+            this.Chess_b2.Image = global::FlightChessClient.Properties.Resources.chessB1;
+            this.Chess_b2.Location = new System.Drawing.Point(110, 25);
+            this.Chess_b2.Name = "Chess_b2";
+            this.Chess_b2.Size = new System.Drawing.Size(76, 69);
+            this.Chess_b2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Chess_b2.TabIndex = 4;
+            this.Chess_b2.TabStop = false;
+            this.Chess_b2.Click += new System.EventHandler(this.Chess_Click);
+            // 
+            // Chess_b1
+            // 
+            this.Chess_b1.BackColor = System.Drawing.Color.Transparent;
+            this.Chess_b1.Image = global::FlightChessClient.Properties.Resources.chessB1;
+            this.Chess_b1.Location = new System.Drawing.Point(6, 25);
+            this.Chess_b1.Name = "Chess_b1";
+            this.Chess_b1.Size = new System.Drawing.Size(76, 69);
+            this.Chess_b1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Chess_b1.TabIndex = 3;
+            this.Chess_b1.TabStop = false;
+            this.Chess_b1.Click += new System.EventHandler(this.Chess_Click);
+            // 
+            // Chess_g4
+            // 
+            this.Chess_g4.BackColor = System.Drawing.Color.Transparent;
+            this.Chess_g4.Image = global::FlightChessClient.Properties.Resources.chessG1;
+            this.Chess_g4.Location = new System.Drawing.Point(110, 99);
+            this.Chess_g4.Name = "Chess_g4";
+            this.Chess_g4.Size = new System.Drawing.Size(76, 69);
+            this.Chess_g4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Chess_g4.TabIndex = 4;
+            this.Chess_g4.TabStop = false;
+            this.Chess_g4.Click += new System.EventHandler(this.Chess_Click);
+            // 
+            // Chess_g3
+            // 
+            this.Chess_g3.BackColor = System.Drawing.Color.Transparent;
+            this.Chess_g3.Image = global::FlightChessClient.Properties.Resources.chessG1;
+            this.Chess_g3.Location = new System.Drawing.Point(6, 99);
+            this.Chess_g3.Name = "Chess_g3";
+            this.Chess_g3.Size = new System.Drawing.Size(76, 69);
+            this.Chess_g3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Chess_g3.TabIndex = 3;
+            this.Chess_g3.TabStop = false;
+            this.Chess_g3.Click += new System.EventHandler(this.Chess_Click);
+            // 
+            // Chess_g2
+            // 
+            this.Chess_g2.BackColor = System.Drawing.Color.Transparent;
+            this.Chess_g2.Image = global::FlightChessClient.Properties.Resources.chessG1;
+            this.Chess_g2.Location = new System.Drawing.Point(110, 20);
+            this.Chess_g2.Name = "Chess_g2";
+            this.Chess_g2.Size = new System.Drawing.Size(76, 69);
+            this.Chess_g2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Chess_g2.TabIndex = 2;
+            this.Chess_g2.TabStop = false;
+            this.Chess_g2.Click += new System.EventHandler(this.Chess_Click);
+            // 
+            // Chess_g1
+            // 
+            this.Chess_g1.BackColor = System.Drawing.Color.Transparent;
+            this.Chess_g1.Image = global::FlightChessClient.Properties.Resources.chessG1;
+            this.Chess_g1.Location = new System.Drawing.Point(6, 20);
+            this.Chess_g1.Name = "Chess_g1";
+            this.Chess_g1.Size = new System.Drawing.Size(76, 69);
+            this.Chess_g1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Chess_g1.TabIndex = 1;
+            this.Chess_g1.TabStop = false;
+            this.Chess_g1.Click += new System.EventHandler(this.Chess_Click);
+            // 
+            // Chess_y4
+            // 
+            this.Chess_y4.BackColor = System.Drawing.Color.Transparent;
+            this.Chess_y4.Image = global::FlightChessClient.Properties.Resources.chessY1;
+            this.Chess_y4.Location = new System.Drawing.Point(110, 99);
+            this.Chess_y4.Name = "Chess_y4";
+            this.Chess_y4.Size = new System.Drawing.Size(76, 69);
+            this.Chess_y4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Chess_y4.TabIndex = 5;
+            this.Chess_y4.TabStop = false;
+            this.Chess_y4.Click += new System.EventHandler(this.Chess_Click);
+            // 
+            // Chess_y2
+            // 
+            this.Chess_y2.BackColor = System.Drawing.Color.Transparent;
+            this.Chess_y2.Image = global::FlightChessClient.Properties.Resources.chessY1;
+            this.Chess_y2.Location = new System.Drawing.Point(110, 20);
+            this.Chess_y2.Name = "Chess_y2";
+            this.Chess_y2.Size = new System.Drawing.Size(76, 69);
+            this.Chess_y2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Chess_y2.TabIndex = 4;
+            this.Chess_y2.TabStop = false;
+            this.Chess_y2.Click += new System.EventHandler(this.Chess_Click);
+            // 
+            // Chess_y3
+            // 
+            this.Chess_y3.BackColor = System.Drawing.Color.Transparent;
+            this.Chess_y3.Image = global::FlightChessClient.Properties.Resources.chessY1;
+            this.Chess_y3.Location = new System.Drawing.Point(6, 99);
+            this.Chess_y3.Name = "Chess_y3";
+            this.Chess_y3.Size = new System.Drawing.Size(76, 69);
+            this.Chess_y3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Chess_y3.TabIndex = 3;
+            this.Chess_y3.TabStop = false;
+            this.Chess_y3.Click += new System.EventHandler(this.Chess_Click);
+            // 
+            // Chess_y1
+            // 
+            this.Chess_y1.BackColor = System.Drawing.Color.Transparent;
+            this.Chess_y1.Image = global::FlightChessClient.Properties.Resources.chessY1;
+            this.Chess_y1.Location = new System.Drawing.Point(6, 20);
+            this.Chess_y1.Name = "Chess_y1";
+            this.Chess_y1.Size = new System.Drawing.Size(76, 69);
+            this.Chess_y1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Chess_y1.TabIndex = 2;
+            this.Chess_y1.TabStop = false;
+            this.Chess_y1.Click += new System.EventHandler(this.Chess_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 60000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // timer2
+            // 
+            this.timer2.Interval = 1000;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // Game
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(993, 612);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.RedDice);
             this.Controls.Add(this.GreenDice);
             this.Controls.Add(this.BlueDice);
@@ -432,26 +432,26 @@ namespace FlightChessClient
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Game_FormClosing);
             this.Load += new System.EventHandler(this.Game_Load);
             this.YellowTeam.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_y4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_y2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_y3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_y1)).EndInit();
             this.GreenTeam.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_g4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_g3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_g2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_g1)).EndInit();
             this.BlueTeam.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_b4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_b3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_b2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Chess_b1)).EndInit();
             this.RedTeam.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Chess_r4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Chess_r3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Chess_r2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Chess_r1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_b4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_b3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_b2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_b1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_g4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_g3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_g2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_g1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_y4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_y2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_y3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chess_y1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -484,6 +484,7 @@ namespace FlightChessClient
         private System.Windows.Forms.Button BlueDice;
         private System.Windows.Forms.Button GreenDice;
         private System.Windows.Forms.Button RedDice;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timer2;
     }
 }

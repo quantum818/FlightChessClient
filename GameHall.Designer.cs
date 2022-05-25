@@ -40,6 +40,8 @@ namespace FlightChessClient
             this.button1 = new System.Windows.Forms.Button();
             this.RoomInfo = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.PlayerBox = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -123,7 +125,7 @@ namespace FlightChessClient
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("宋体", 24F);
-            this.button1.Location = new System.Drawing.Point(199, 50);
+            this.button1.Location = new System.Drawing.Point(188, 50);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(147, 169);
             this.button1.TabIndex = 10;
@@ -150,12 +152,34 @@ namespace FlightChessClient
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
+            // PlayerBox
+            // 
+            this.PlayerBox.FormattingEnabled = true;
+            this.PlayerBox.ItemHeight = 12;
+            this.PlayerBox.Location = new System.Drawing.Point(12, 296);
+            this.PlayerBox.Name = "PlayerBox";
+            this.PlayerBox.Size = new System.Drawing.Size(90, 232);
+            this.PlayerBox.TabIndex = 12;
+            this.PlayerBox.SelectedIndexChanged += new System.EventHandler(this.PlayerBox_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("宋体", 16F);
+            this.label1.Location = new System.Drawing.Point(12, 264);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 22);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "在线:";
+            // 
             // GameHall
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 540);
             this.ControlBox = false;
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.PlayerBox);
             this.Controls.Add(this.RoomInfo);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.personalInfo);
@@ -189,5 +213,7 @@ namespace FlightChessClient
         private System.Windows.Forms.Button personalInfo;
         private System.Windows.Forms.Button button1;
         public System.Windows.Forms.TextBox RoomInfo;
+        public System.Windows.Forms.ListBox PlayerBox;
+        private System.Windows.Forms.Label label1;
     }
 }

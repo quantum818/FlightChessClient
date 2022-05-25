@@ -1,4 +1,5 @@
 ﻿using Fleck;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -55,6 +56,37 @@ namespace FlightChessClient
             ClassLAB.Text = "等级: " + utils.Userinfo.Classnum.ToString();
             ClassGroupLAB.Text = "称号: " + utils.Userinfo.Classname;
             desLAB.Text = "个性签名: " + utils.Userinfo.Description;
+        }
+
+        private void PlayerBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MySqlConnection connection = new MySqlConnection(connStr);
+            connection.Open();
+            DataSet temp = new DataSet();
+            String username = PlayerBox.SelectedItem.ToString();
+            String classname = "", description = "", logtime = "";
+            int classnum = 0;
+            String sltStr = "select classname,classnum,description,datein,account from Loginfo where username = " + "'" + username + "';";
+            MySqlDataAdapter dataAdapter = new MySqlDataAdapter(sltStr, connection);
+            MySqlCommandBuilder mySqlCommandBuilder = new MySqlCommandBuilder(dataAdapter);
+            dataAdapter.Fill(temp, "temptb");
+            connection.Close();
+            DataTable table = temp.Tables["temptb"];
+            DataRow tempRow = table.Rows[0];
+            int count = 0;
+            foreach (var data in tempRow.ItemArray)
+            {
+                switch (count)
+                {
+                    case 0: classname = data.ToString(); break;
+                    case 1: classnum = int.Parse(data.ToString()); break;
+                    case 2: description = data.ToString(); break;
+                    case 3: logtime = data.ToString(); break;
+                    default: break;
+                }
+                count++;
+            }
+            MessageBox.Show("等级：" + classnum.ToString() + "\r\n" + "称号：" + classname + "\r\n" + "注册时间：" + logtime + "\r\n" + "个性签名：" + description, username);
         }
     }
 }

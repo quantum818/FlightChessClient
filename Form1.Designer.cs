@@ -68,6 +68,7 @@ namespace FlightChessClient
             // 
             this.PassWordBox.Location = new System.Drawing.Point(118, 168);
             this.PassWordBox.Name = "PassWordBox";
+            this.PassWordBox.PasswordChar = '●';
             this.PassWordBox.Size = new System.Drawing.Size(186, 21);
             this.PassWordBox.TabIndex = 2;
             // 
