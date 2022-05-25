@@ -24,7 +24,8 @@ namespace FlightChessClient
         }
 
         private void GameHall_Load(object sender, EventArgs e)
-        { 
+        {
+            RoomInfo.Visible = false;
             this.MdiParent = utils.mainFrm;
             ChangeInfoText();
         }
@@ -37,6 +38,7 @@ namespace FlightChessClient
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            RoomInfo.Visible = true;
             utils.mainFrm.SendMSG(new JSONinfo("game", DateTime.Now.Hour.ToString() + ":" + DateTime.Now.Minute.ToString() + ":" + DateTime.Now.Second.ToString(), utils.Userinfo.Username, "table1"));
             RoomInfo.Text += DateTime.Now.Hour.ToString() + ":" + DateTime.Now.Minute.ToString() + ":" + DateTime.Now.Second.ToString() + " " + "你进入了房间1\r\n";
         }

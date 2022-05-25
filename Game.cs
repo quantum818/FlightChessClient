@@ -656,7 +656,14 @@ namespace FlightChessClient
         private void Game_FormClosing(object sender, FormClosingEventArgs e)
         {
             listening.Abort();
+            clientWebSocket.Abort();
             this.Dispose();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            WinInfo msg = new WinInfo("WinInfo", utils.Userinfo.Username, 4);
+            utils.mainFrm.SendWinMSG(msg);
         }
     }
 }

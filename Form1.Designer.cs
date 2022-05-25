@@ -35,7 +35,6 @@ namespace FlightChessClient
             this.PassWordBox = new System.Windows.Forms.TextBox();
             this.Login = new System.Windows.Forms.Button();
             this.register = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // UserNameBox
@@ -94,22 +93,11 @@ namespace FlightChessClient
             this.register.UseVisualStyleBackColor = true;
             this.register.Click += new System.EventHandler(this.register_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(151, 65);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(386, 388);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.register);
             this.Controls.Add(this.Login);
             this.Controls.Add(this.label2);
@@ -131,7 +119,6 @@ namespace FlightChessClient
         private System.Windows.Forms.TextBox PassWordBox;
         private System.Windows.Forms.Button Login;
         private System.Windows.Forms.Button register;
-        private System.Windows.Forms.Button button1;
     }
 }
 

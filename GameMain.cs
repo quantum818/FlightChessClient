@@ -57,7 +57,14 @@ namespace FlightChessClient
                     if (!RevMSG.Equals(temp) && temp != "new client connect!")
                     {
                         JavaScriptSerializer jss = new JavaScriptSerializer();
-                        TsJSON = jss.Deserialize<JSONinfo>(temp);
+                        try
+                        {
+                            TsJSON = jss.Deserialize<JSONinfo>(temp);
+                        }
+                        catch
+                        {
+
+                        }
                         RevMSG = temp;
                         if (TsJSON.MSGKind == "chat")
                         {
@@ -158,6 +165,14 @@ namespace FlightChessClient
         {
             listening.Abort();
             System.Environment.Exit(0);
+        }
+
+        private void GameMain_Activated(object sender, EventArgs e)
+        {
+            if (listening.ThreadState == ThreadState.Suspended)
+            {
+                listening.Resume();
+            }
         }
     }
 }

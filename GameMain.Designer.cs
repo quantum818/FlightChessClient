@@ -39,6 +39,7 @@ namespace FlightChessClient
             this.IsMdiContainer = true;
             this.Name = "GameMain";
             this.Text = "-";
+            this.Activated += new System.EventHandler(this.GameMain_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameMain_FormClosing);
             this.Load += new System.EventHandler(this.GameMain_Load);
             this.ResumeLayout(false);

@@ -56,6 +56,7 @@ namespace FlightChessClient
             this.BlueDice = new System.Windows.Forms.Button();
             this.GreenDice = new System.Windows.Forms.Button();
             this.RedDice = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.YellowTeam.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Chess_y4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Chess_y2)).BeginInit();
@@ -400,11 +401,22 @@ namespace FlightChessClient
             this.RedDice.UseVisualStyleBackColor = false;
             this.RedDice.Click += new System.EventHandler(this.RedDice_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(854, 279);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Game
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(993, 612);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.RedDice);
             this.Controls.Add(this.GreenDice);
             this.Controls.Add(this.BlueDice);
@@ -472,5 +484,6 @@ namespace FlightChessClient
         private System.Windows.Forms.Button BlueDice;
         private System.Windows.Forms.Button GreenDice;
         private System.Windows.Forms.Button RedDice;
+        private System.Windows.Forms.Button button1;
     }
 }
