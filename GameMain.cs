@@ -28,6 +28,7 @@ namespace FlightChessClient
         public Game game = null;
         public GameHall gameHall = null;
         public List<String> players = new List<string>(4);
+        public int RoomID = -1;
         public GameMain()
         {
             InitializeComponent();
@@ -43,7 +44,7 @@ namespace FlightChessClient
             listening.Name = "服务器监听";
             listening.Start();
             gameHall.Show();
-            SendMSG(new JSONinfo("login", DateTime.Now.ToString(), utils.Userinfo.Username, ""));
+            SendMSG(new JSONinfo("login", DateTime.Now.ToString(), utils.Userinfo.Username, "",0));
         }
         private void GetMSG()
         {
@@ -72,7 +73,7 @@ namespace FlightChessClient
                         {
                             WriteTextSafe("(" + TsJSON.timeNow + ")" + TsJSON.sendHost + "：" + TsJSON.MSG + "\r\n");
                         }
-                        else if (TsJSON.MSGKind == "game")
+                        else if (TsJSON.MSGKind == "game" && TsJSON.RoomID==RoomID)
                         {
                             if (TsJSON.sendHost != utils.Userinfo.Username)
                             {
@@ -86,10 +87,14 @@ namespace FlightChessClient
                                 game.round = round;
                                 game.OpenFormSafe(this);
                                 gameHall.RoomInfo.Text = "";
+                                gameHall.Visible = false;
                             }
                             else
                             {
-                                players.Add(TsJSON.sendHost);
+                                if (!players.Contains(TsJSON.sendHost) && (TsJSON.sendHost !=utils.Userinfo.Username || TsJSON.MSG=="player"))
+                                {
+                                    players.Add(TsJSON.sendHost);
+                                }
                             }
                         }
                         else if (TsJSON.MSGKind == "login")
@@ -202,7 +207,7 @@ namespace FlightChessClient
         }
         private void GameMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SendMSG(new JSONinfo("leave", DateTime.Now.ToString(), utils.Userinfo.Username, ""));
+            SendMSG(new JSONinfo("leave", DateTime.Now.ToString(), utils.Userinfo.Username, "",0));
             listening.Abort();
             System.Environment.Exit(0);
         }

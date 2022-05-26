@@ -235,7 +235,7 @@ namespace FlightChessClient
                         winInfo = jss.Deserialize<WinInfo>(temp);
                     }
                     catch { }
-                    if (chessinfo.MSGKind == "Chess" && chessinfo.sendHost != utils.Userinfo.Username)
+                    if (chessinfo.MSGKind == "Chess" && chessinfo.sendHost != utils.Userinfo.Username && chessinfo.RoomID == utils.mainFrm.RoomID)
                     {
                         if (chessinfo.States == 1)
                         {
@@ -323,11 +323,11 @@ namespace FlightChessClient
                             REVChess.otherChess.Add(REVChess);
                         }
                     }
-                    if (chessinfo.MSGKind == "Chess" && chessinfo.States == 3 && chessinfo.ChessRow != -1)
+                    if (chessinfo.MSGKind == "Chess" && chessinfo.States == 3 && chessinfo.ChessRow != -1 && chessinfo.RoomID == utils.mainFrm.RoomID)
                     {
                         ChangeTextSafe(chessinfo.sendHost + "击坠了" + chessinfo.ChessName + " " + chessinfo.ChessRow + "架飞机！");
                     }
-                    else if (commd.MSGKind == "Comm")
+                    else if (commd.MSGKind == "Comm" && commd.roomID==utils.mainFrm.RoomID)
                     {
                         if (commd.Host == utils.Userinfo.Username)
                         {
@@ -336,10 +336,10 @@ namespace FlightChessClient
                         }
                         ChangeTextSafe(commd.Host + "掷出了" + commd.DicePoint.ToString() + "点！");
                     }
-                    else if (winInfo.MSGKind == "WinInfo" && winInfo.WinChess == 4)
+                    else if (winInfo.MSGKind == "WinInfo" && winInfo.WinChess == 4 && winInfo.RoomID== utils.mainFrm.RoomID)
                     {
                         ChangeTextSafe(winInfo.Host + "赢了");
-                        utils.mainFrm.SendStr("tableEND");
+                        utils.mainFrm.SendStr("table" + utils.mainFrm.RoomID.ToString() + "END");
                         DialogResult result = MessageBox.Show("游戏结束", "赢家是: "+winInfo.Host+"!", MessageBoxButtons.OKCancel);
                         if (result == DialogResult.OK || result == DialogResult.Cancel || result == DialogResult.Abort)
                         {
@@ -384,7 +384,7 @@ namespace FlightChessClient
         }
         private void CommonClick()
         {
-            utils.mainFrm.SendStr(round.ToString());
+            utils.mainFrm.SendStr(round.ToString()+ utils.mainFrm.RoomID.ToString());
             activeChess();
             while (!REVMSG) { }
             if (points == 6)
@@ -397,7 +397,7 @@ namespace FlightChessClient
                 myDice.Enabled = false;
                 if (ativeChesses==0)
                 {
-                    utils.mainFrm.SendStr("C");
+                    utils.mainFrm.SendStr("C"+ utils.mainFrm.RoomID.ToString());
                 }
                 else
                 {
@@ -421,19 +421,19 @@ namespace FlightChessClient
                 {
                     int temp = thisChess.localRow(board) - 1;
                     if (temp == 0) temp = 4;
-                    sendChessPosition = new Chessinfo("Chess", utils.Userinfo.Username, thisChess.Name, temp, 12, 2);
+                    sendChessPosition = new Chessinfo("Chess", utils.Userinfo.Username, thisChess.Name, temp, 12, 2, utils.mainFrm.RoomID);
                     CheckChesses(thisChess.nowRow[0].beforeRow[12], thisChess);
                 }
                 else
                 {
-                    sendChessPosition = new Chessinfo("Chess", utils.Userinfo.Username, thisChess.Name, thisChess.localRow(board), thisChess.nowLocal, 2);
+                    sendChessPosition = new Chessinfo("Chess", utils.Userinfo.Username, thisChess.Name, thisChess.localRow(board), thisChess.nowLocal, 2, utils.mainFrm.RoomID);
                     CheckChesses(thisChess.nowRow[thisChess.nowLocal], thisChess);
                 }
                 utils.mainFrm.SendChessMSG(sendChessPosition);
             }
             if (points != 6 || sixTimes != 1)
             {
-                utils.mainFrm.SendStr("C");
+                utils.mainFrm.SendStr("C"+ utils.mainFrm.RoomID.ToString());
             }
             timercount = 60;
             inactiveChess();
@@ -491,7 +491,7 @@ namespace FlightChessClient
             }
             else if (bock.nowChess != null && bock.nowChess.ChessColor != ind.ChessColor && ind.host == utils.Userinfo.Username)
             {
-                Chessinfo sendMSG = new Chessinfo("Chess", utils.Userinfo.Username, bock.nowChess.host, bock.nowChess.otherChess.Count, -1, 3);
+                Chessinfo sendMSG = new Chessinfo("Chess", utils.Userinfo.Username, bock.nowChess.host, bock.nowChess.otherChess.Count, -1, 3, utils.mainFrm.RoomID);
                 goBackHome(bock.nowChess);
                 utils.mainFrm.SendChessMSG(sendMSG);
             }
@@ -636,7 +636,7 @@ namespace FlightChessClient
                 CheckWaitArea();
                 WaitArea.Add(ind);
                 ind.Location = ind.ChessStartArea;
-                Chessinfo sendStartInfo = new Chessinfo("Chess", utils.Userinfo.Username, ind.Name, -1, -1, 1);
+                Chessinfo sendStartInfo = new Chessinfo("Chess", utils.Userinfo.Username, ind.Name, -1, -1, 1, utils.mainFrm.RoomID);
                 utils.mainFrm.SendChessMSG(sendStartInfo);
                 return;
             }
@@ -669,7 +669,7 @@ namespace FlightChessClient
         private void sendWinInfo(Chess chess)
         {
             WinChesses += chess.otherChess.Count();
-            WinInfo msg = new WinInfo("WinInfo", utils.Userinfo.Username, WinChesses);
+            WinInfo msg = new WinInfo("WinInfo", utils.Userinfo.Username, WinChesses, utils.mainFrm.RoomID);
             utils.mainFrm.SendWinMSG(msg);
         }
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -697,7 +697,7 @@ namespace FlightChessClient
             }
             ind.otherChess.Clear();
             ind.otherChess.Add(ind);
-            Chessinfo sendBackhomeinfo = new Chessinfo("Chess", utils.Userinfo.Username, ind.Name, -1, -1, 3);
+            Chessinfo sendBackhomeinfo = new Chessinfo("Chess", utils.Userinfo.Username, ind.Name, -1, -1, 3, utils.mainFrm.RoomID);
             utils.mainFrm.SendChessMSG(sendBackhomeinfo);
         }
 
@@ -711,7 +711,7 @@ namespace FlightChessClient
 
         private void button1_Click(object sender, EventArgs e)
         {
-            WinInfo msg = new WinInfo("WinInfo", utils.Userinfo.Username, 4);
+            WinInfo msg = new WinInfo("WinInfo", utils.Userinfo.Username, 4, utils.mainFrm.RoomID);
             utils.mainFrm.SendWinMSG(msg);
         }
         private void activeChess()
@@ -731,9 +731,10 @@ namespace FlightChessClient
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            utils.mainFrm.SendStr("C");
+            utils.mainFrm.SendStr("C"+ utils.mainFrm.RoomID.ToString());
             timercount = 60;
             timer2.Enabled = false;
+            timer1.Enabled = false;
         }
 
         private void timer2_Tick(object sender, EventArgs e)
@@ -744,6 +745,7 @@ namespace FlightChessClient
             {
                 timer2.Enabled = false;
                 GameInfo.Text = "对战中：时间耗尽！";
+                timercount = 60;
             }
         }
     }

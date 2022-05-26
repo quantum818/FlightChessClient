@@ -33,14 +33,15 @@ namespace FlightChessClient
 
         private void sendMsg_Click(object sender, EventArgs e)
         {
-            JSONinfo jsonStr = new JSONinfo("chat", DateTime.Now.Hour.ToString() + ":" + DateTime.Now.Minute.ToString() + ":" + DateTime.Now.Second.ToString(), utils.Userinfo.Username, MSGBox.Text.ToString());
+            JSONinfo jsonStr = new JSONinfo("chat", DateTime.Now.Hour.ToString() + ":" + DateTime.Now.Minute.ToString() + ":" + DateTime.Now.Second.ToString(), utils.Userinfo.Username, MSGBox.Text.ToString(),0);
             utils.mainFrm.SendMSG(jsonStr);
             MSGBox.Text = "";
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            utils.mainFrm.RoomID = 1;
             RoomInfo.Visible = true;
-            utils.mainFrm.SendMSG(new JSONinfo("game", DateTime.Now.Hour.ToString() + ":" + DateTime.Now.Minute.ToString() + ":" + DateTime.Now.Second.ToString(), utils.Userinfo.Username, "table1"));
+            utils.mainFrm.SendMSG(new JSONinfo("game", DateTime.Now.Hour.ToString() + ":" + DateTime.Now.Minute.ToString() + ":" + DateTime.Now.Second.ToString(), utils.Userinfo.Username, "table1",1));
             RoomInfo.Text += DateTime.Now.Hour.ToString() + ":" + DateTime.Now.Minute.ToString() + ":" + DateTime.Now.Second.ToString() + " " + "你进入了房间1\r\n";
         }
 
@@ -87,6 +88,14 @@ namespace FlightChessClient
                 count++;
             }
             MessageBox.Show("等级：" + classnum.ToString() + "\r\n" + "称号：" + classname + "\r\n" + "注册时间：" + logtime + "\r\n" + "个性签名：" + description, username);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            utils.mainFrm.RoomID = 2;
+            RoomInfo.Visible = true;
+            utils.mainFrm.SendMSG(new JSONinfo("game", DateTime.Now.Hour.ToString() + ":" + DateTime.Now.Minute.ToString() + ":" + DateTime.Now.Second.ToString(), utils.Userinfo.Username, "table2",2));
+            RoomInfo.Text += DateTime.Now.Hour.ToString() + ":" + DateTime.Now.Minute.ToString() + ":" + DateTime.Now.Second.ToString() + " " + "你进入了房间2\r\n";
         }
     }
 }

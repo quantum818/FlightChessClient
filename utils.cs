@@ -160,13 +160,15 @@ namespace FlightChessClient
             public String MSGKind = "";
             public String timeNow = "";
             public String sendHost = "";
+            public int RoomID = 0;
             public String MSG = "";
-            public JSONinfo(String msgKind,String time,String userName,String msg)
+            public JSONinfo(String msgKind,String time,String userName,String msg, int roomid)
             {
                 MSGKind = msgKind;
                 timeNow = time;
                 sendHost = userName;
                 MSG = msg;
+                RoomID = roomid;
             }
             public JSONinfo()
             {
@@ -181,7 +183,8 @@ namespace FlightChessClient
             public int ChessRow = -1;
             public int ChessLocal = -1;
             public int States = -1;
-            public Chessinfo(String msgKind,String userName,String chessName,int chessRow,int chessLocal,int states)
+            public int RoomID = -1;
+            public Chessinfo(String msgKind,String userName,String chessName,int chessRow,int chessLocal,int states,int roomID)
             {
                 MSGKind = msgKind;
                 sendHost = userName;
@@ -189,6 +192,7 @@ namespace FlightChessClient
                 ChessRow = chessRow;
                 ChessLocal = chessLocal;
                 States = states;
+                RoomID = roomID;
             }
             public Chessinfo()
             {
@@ -208,11 +212,13 @@ namespace FlightChessClient
             public String MSGKind = "";
             public String Host = "";
             public int WinChess = -1;
-            public WinInfo(String msgKind,String host,int chesses)
+            public int RoomID = -1;
+            public WinInfo(String msgKind,String host,int chesses,int roomid)
             {
                 MSGKind = msgKind;
                 Host = host;
                 WinChess = chesses;
+                RoomID = roomid;
             }
             public WinInfo()
             {

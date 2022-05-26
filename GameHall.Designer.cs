@@ -42,6 +42,7 @@ namespace FlightChessClient
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.PlayerBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -172,12 +173,24 @@ namespace FlightChessClient
             this.label1.TabIndex = 13;
             this.label1.Text = "在线:";
             // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("宋体", 24F);
+            this.button2.Location = new System.Drawing.Point(404, 50);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(147, 169);
+            this.button2.TabIndex = 14;
+            this.button2.Text = "房间2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // GameHall
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 540);
             this.ControlBox = false;
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.PlayerBox);
             this.Controls.Add(this.RoomInfo);
@@ -215,5 +228,6 @@ namespace FlightChessClient
         public System.Windows.Forms.TextBox RoomInfo;
         public System.Windows.Forms.ListBox PlayerBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button2;
     }
 }
